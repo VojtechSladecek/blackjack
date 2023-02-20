@@ -54,4 +54,9 @@ function startGame() {
     getPlayerMove(playerHandValue, deck);
 }
 
+//function to add option double
+//function to add betting mechanism
+//function to create 
+
+
 startGame();
