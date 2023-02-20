@@ -1,0 +1,57 @@
+// function to get the player's move
+function getPlayerMove(handValue, deck) {
+    rl.question(`Your hand value is ${handValue}. Would you like to hit or stand? `, (answer) => {
+        if (answer.toLowerCase() === 'hit') {
+            // code to deal another card to player
+            let card = deck.pop();
+            console.log(`You were dealt a ${card.value} of ${card.suit}.`);
+            handValue += card.value;
+            if (handValue > 21) {
+                console.log(`You busted with a hand value of ${handValue}.`);
+                // code to end the game
+            } else {
+                getPlayerMove(handValue, deck);
+            }
+        } else if (answer.toLowerCase() === 'stand') {
+            // code to end player's turn and start dealer's turn
+            let dealerHandValue = getDealerHandValue(dealerCards);
+            console.log(`Dealer's hand value is ${dealerHandValue}.`);
+            while (dealerHandValue < 17) {
+                let card = deck.pop();
+                console.log(`Dealer was dealt a ${card.value} of ${card.suit}.`);
+                dealerHandValue += card.value;
+            }
+            if (dealerHandValue > 21) {
+                console.log(`Dealer busted with a hand value of ${dealerHandValue}.`);
+                // code to end the game
+            } else {
+                // code to compare dealer's hand value with player's hand value and determine the winner
+            }
+        } else {
+            console.log('Invalid option, please enter hit or stand.');
+            getPlayerMove(handValue, deck);
+        }
+
+    });
+}
+
+// function to start the game
+function startGame() {
+    // code to set up the game and deal initial cards to player and dealer
+    const deck = [];
+    const suits = ['Spades', 'Hearts', 'Diamonds', 'Clubs'];
+    const values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King'];
+    for (const suit of suits) {
+        for (const value of values) {
+            deck.push({ suit, value });
+        }
+    }
+    shuffle(deck);
+    const playerCards = [deck.pop(), deck.pop()];
+    const dealerCards = [deck.pop(), deck.pop()];
+    const playerHandValue = calculateHandValue(playerCards);
+    console.log(`Your hand is ${playerCards[0].value} of ${playerCards[0].suit} and ${playerCards[1].value} of ${playerCards[1].suit}.`);
+    getPlayerMove(playerHandValue, deck);
+}
+
+startGame();
