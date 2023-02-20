@@ -35,6 +35,25 @@ function getPlayerMove(handValue, deck) {
     });
 }
 
+//function split cards
+function splitCards(playerCards, playerHandValue, deck) {
+    if (playerCards.length === 2 && playerCards[0].value === playerCards[1].value) {
+      const newHand = [playerCards.pop()];
+      const newCard = deck.pop();
+      newHand.push(newCard);
+      playerCards.push(deck.pop());
+      const newHandValue = calculateHandValue(newHand);
+      const splitHandValue = calculateHandValue(playerCards);
+      console.log(`Your original hand is ${playerCards[0].value} of ${playerCards[0].suit} and ${newHand[0].value} of ${newHand[0].suit}.`);
+      console.log(`Your new hand is ${playerCards[1].value} of ${playerCards[1].suit} and ${newHand[1].value} of ${newHand[1].suit}.`);
+      getPlayerMove(splitHandValue);
+      getPlayerMove(newHandValue);
+    } else {
+      console.log('You cannot split your cards.');
+      getPlayerMove(playerHandValue);
+    }
+  }
+
 // function to start the game
 function startGame() {
     // code to set up the game and deal initial cards to player and dealer
